@@ -1,17 +1,13 @@
 require("dotenv").config();
-const express = require("express");
+
+const express = require('express');
 const app = express();
+const port = process.env.NODE_DOCKER_PORT || 8080;
 
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+})
 
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to DimaLos blog application. 5" });
-});
-
-// set port, listen for requests
-const PORT = process.env.NODE_DOCKER_PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
-});
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+})

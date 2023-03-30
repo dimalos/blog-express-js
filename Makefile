@@ -6,9 +6,6 @@ up:
 down:
 	docker-compose -f .docker/docker-compose.yml down
 
-build:
-	docker-compose -f .docker/docker-compose.yml build --no-cache
-
 install:
 	docker exec -t dimalos-blog-app bash -c 'npm install'
 
