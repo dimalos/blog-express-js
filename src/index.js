@@ -1,31 +1,25 @@
 require("dotenv").config();
+import { engine } from 'express-handlebars';
+
 
 const express = require('express');
+const expressLayouts = require('express-ejs-layouts');
 const app = express();
 const port = process.env.NODE_DOCKER_PORT || 8080;
 
 const path = require('path');
 const staticPath = path.join(__dirname, '/../public');
-console.log(staticPath);
 app.use(express.static(staticPath));
+
+app.engine('handlebars', engine());
+app.set('views', path.join(__dirname, 'views'));
+// setup template engine
+app.set('view engine', 'handlebars');
+app.use(expressLayouts);
+//
 
 
 require('./routes/all')(app);
-// app.get('/', (req, res) => {
-//   const responseContent = `
-//   <html>
-//   <body>
-//   <h1>Hello, it's Dima's blog, be careful!</h1>
-//   <div>
-//   <img src="/img/funny-moose.png">
-//   </div>
-// </div>
-// </body>
-//   </html>
-//
-//   `;
-//   res.send(responseContent);
-// })
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
